@@ -1,0 +1,75 @@
+---
+title: Atividade Computacional 1
+author: Daniel de Amaral da Silva
+date: March 20, 2019
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+<center>**Pacotes necessários**</center>
+```{r loadlib, echo=T, results='hide', message=F, warning=F}
+library(kableExtra)
+library(dplyr)
+library(TeachingSampling)
+library(ggplot2)
+```
+
+<center>**Dataset Lucy**</center>
+```{r warning=FALSE}
+data(Lucy)
+attach(Lucy)
+
+head(Lucy) %>% 
+  kable('html') %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+<style>
+body {text-align: justify}
+</style>
+
+<center>**Atividades**</center>
+**1.** Fazer uma análise descritiva da variável Income (Renda). Sugestão: é muito importante pesquisar (estudar) a base de dados Lucy antes de fazer a análise descritiva.  
+```{r fig.align='center'}
+Lucy %>% ggplot(aes(Lucy$Income)) + 
+  geom_histogram( binwidth = 100,
+                  col="red", 
+                  fill='#2879d0', 
+                  alpha = .5) +
+  scale_x_continuous(breaks = seq(0, 2550, by = 200))+
+  labs(title="Histograma para Renda") +
+  ylab('Frequência') +
+  xlab('Renda')
+```
+
+```{r}
+summary(Lucy$Income)
+```
+```{r fig.align='center'}
+Lucy %>% ggplot(aes(y = Lucy$Income, x = 'Income')) + 
+  geom_boxplot() +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) + 
+  scale_y_continuous(breaks = seq(0, 2550, by = 200))+
+  labs(title = 'Boxplot para Renda') +
+  ylab('Renda')+
+  coord_flip()
+```
+
+
+**2.** Obter uma amostra mediante uma amostragem de Bernoulli usando $\pi = 0,2$. Calcular o $\pi$-estimador de total e sua respectiva variância estimada para a variável Income. (Analisar os resultados)  
+**3.** O tamanho amostral obtido no item anterior é semelhante ou muito diferente do esperado? Justificar sua resposta  
+**4.** Obter uma amostra de tamanho $480$ mediante uma amostragem simples sem reposição. Calcular o $\pi$-estimador de total e sua respectiva variância estimada para a variável Income. (Analisar os resultados)  
+**5.** Comprar os resultados obtidos nas questões 2 e 4.  
+**6.** A variável Level tem três categorias (Big, Medium e Small). Suponha que cada categoria é uma população diferente. Obtenha uma amostra aleatória simples sem reposição para cada categoria do 20% do tamanho de cada população. Calcular o $\pi$-estimador e sua respectiva variância para cada categoria. Com estes resultados é possível obter uma estimativa para o total de população em geral e sua variância estimada? Caso que a resposta for afirmativa, quais são os valores correspondentes? Precisa fazer algumas suposições? (Justificar sua resposta).
+
+
+
+
+
+
+
+
+
+
