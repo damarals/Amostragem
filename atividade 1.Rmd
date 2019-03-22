@@ -88,7 +88,7 @@ pi_est %>%
   kable('html') %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
-> Ao a analisar os resultados notamos que as Estimações do tamanho amostral e do Total da variável Income se aproximam do valor real, isto é evidenciado pelo Erro padrão e pelo Coeficiente de Variação estimado, que nos mostra um erro de tolerância de 4.75% e nos indica um sinal de homogeneidade da população.
+> Ao a analisar os resultados notamos que as Estimações do tamanho amostral e do Total da variável Income se aproximam do valor real, isto é evidenciado pelo Erro padrão e pelo Coeficiente de Variação estimado, que nos mostra um erro de tolerância de 4.75% e nos indica um sinal de homogeneidade da população. Além disso, a razão de variâncias (DEFF) é igual a aproximadamente 3.77, isso nos indica que a variância da amostragem de Bernoulli neste caso possui aproximadamente uma variância 3.77 vezes maior que a de uma amostragem simples sem reposição.
   
 **3.** O tamanho amostral obtido no item anterior é semelhante ou muito diferente do esperado? Justificar sua resposta  
 
@@ -122,8 +122,41 @@ pi_est2 %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
+>Ao a analisar os resultados notamos que as Estimações do tamanho amostral e do Total da variável Income se aproximam do valor real, isto é evidenciado pelo Erro padrão e pelo Coeficiente de Variação estimado, que nos mostra um erro de tolerância de 2.34% e nos indica um sinal de homogeneidade da população. Além disso, a razão de variâncias (DEFF) se iguala à 1, pois foi calculada a razão de 2 amostragens simples sem reposição.
 
-**5.** Comprar os resultados obtidos nas questões 2 e 4.  
+**5.** Comparar os resultados obtidos nas questões 2 e 4.  
+
+>Ao comparar os resultados obtidos nos items 2 e 4, notamos um mesmo tamanho amostral. Em relação à estimação do total notamos que a amostragem simples sem reposição neste caso é mais precisa de que a amostragem de Bernoulli devido ao baixo desvio padrão e consequentemente neste caso o Coeficiente de variação estimado da amostragem de Bernoulli ser aproximadamente o dobro da amostragem simples sem reposição. Contudo, apesar da amostragem simples sem reposição ser mais precisa de que a amostragem de Bernoulli, a amostragem de Bernoulli é mais exata do que a amostragem simples sem reposição, pois se aproxima mais do valor real do total da variável Income.
+
 **6.** A variável Level tem três categorias (Big, Medium e Small). Suponha que cada categoria é uma população diferente. Obtenha uma amostra aleatória simples sem reposição para cada categoria do 20% do tamanho de cada população. Calcular o $\pi$-estimador e sua respectiva variância para cada categoria. Com estes resultados é possível obter uma estimativa para o total de população em geral e sua variância estimada? Caso que a resposta for afirmativa, quais são os valores correspondentes? Precisa fazer algumas suposições? (Justificar sua resposta).
 
+```{r}
+# Small
+Small = Lucy[Lucy$Level == 'Small',]
+am_Small_ik = S.SI(dim(Small)[1], round(dim(Small)[1]*0.2))
+am_Small = Small[am_Small_ik, ]
+# Pi-estimador
+pi_est3 = E.SI(dim(Small)[1], dim(am_Small)[1], am_Small[c('Income','Employees','Taxes')])
+pi_est3 %>%
+  kable('html') %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+# Medium
+Medium = Lucy[Lucy$Level == 'Medium',]
+am_Medium_ik = S.SI(dim(Medium)[1], round(dim(Medium)[1]*0.2))
+am_Medium = Medium[am_Medium_ik, ]
+# Pi-estimador
+pi_est4 = E.SI(dim(Medium)[1], dim(am_Medium)[1], am_Medium[c('Income','Employees','Taxes')])
+pi_est4 %>%
+  kable('html') %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+# Big
+Big = Lucy[Lucy$Level == 'Big',]
+am_Big_ik = S.SI(dim(Big)[1], round(dim(Big)[1]*0.2))
+am_Big = Big[am_Big_ik, ]
+# Pi-estimador
+pi_est5 = E.SI(dim(Big)[1], dim(am_Big)[1], am_Big[c('Income','Employees','Taxes')])
+pi_est5 %>%
+  kable('html') %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
