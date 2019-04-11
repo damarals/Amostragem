@@ -1,15 +1,15 @@
 fSI = function(data, m){
   N = length(data);
-  arr_n = rep(0, N);
+  arr_ind = rep(0, N);
   for(i in 1:N){
     size = m
     prob = 1/N;
-    arr_n[i] = rbinom(1, size, prob);
+    arr_ind[i] = if (rbinom(1, size, prob) != 0) 1 else 0;
     if(size == 0){
       break;
     }
   }
-  return(arr_n);
+  return(arr_ind);
 }
 
 
