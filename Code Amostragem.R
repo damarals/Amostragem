@@ -79,7 +79,7 @@ intervalSampling = function(tipo = 'total', est, confianca = 0.95){
   if(tipo == 'mean'){
     N = est[1, 1]
     a = est[1, 2] / N
-    b = est[2, 2] / (N^2)
+    b = est[2, 2] / N
   }
   
   alpha = 1 - confianca
